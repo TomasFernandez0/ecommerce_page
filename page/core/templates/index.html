@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock  %}
+
+
+{% block content %}
+
+<div class="mt-6 px-6 py-12 bg-blue-100 rounded-xl">
+    <h2 class="mb-12 text-2xl text-center">Nuevos productos</h2>
+
+    <div class="grid grid-cols-3 gap-3">
+        {% for product in products %}
+        <div>
+            <a href="{% url 'product_detail' product.id %}">
+            <div>
+                <img src="{{ product.image.url }}" class="rounded-t w-full h-screen" href="/product_detail">
+            </div>
+
+            <div class="p-6 bg-white rounded-b-xl">
+                <h2 class="text-2xl">{{ product.name}}</h2>
+                <p class="text-green-500">Price: {{ product.price }}</p>
+                <p class="text-gray-500">Description: {{ product.description }}</p>
+                {% if request.user.is_staff %}
+                <a href="{% url 'edit' product.id %}" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl">Edit</a>
+                <a href="{% url 'delete' product.id %}" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-red-500 text-white rounded-xl">Remove</a>
+                {% endif %}
+            </div>
+            
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+
+
+
+{% endblock %}
